@@ -1,0 +1,31 @@
+Theory:
+    -> Docker is used to containerize the application.
+    -> Using docker we can create images, and then we can create or instantiate as many containers we want from that image.
+    -> Here Image is like a "Class" and container is like "Object" i.e instance.
+    -> Docker pulls the image from docker hub when we run any image if it doesn't exists.
+
+Commands: 
+    docker -d --name -p <sysPort>:<containerPort> 
+
+    docker run -d <image> (detach mode)
+        -> image will run in background regardless of terminal activity
+
+    docker run -p <Mac_Port>:<Container_Port> <image> (port)
+        -> mapping the system port with the container port
+        -> eg: 4000:3000 i.e, 4000 port in system is mapped to 3000 port in container
+
+    docker run -e <ENV_VARIABLE>=<ENV_VALUE> <image>
+
+    docker ps -a (all containers will be listed and -a represents all)
+
+    docker rm <CONTAINER_ID> (removes container)
+
+    docker rmi <IMAGE> (removes image)
+
+    creating a sample container of mongo
+        docker -d --name mymongo -p 3501:27017 -e MONGO_INITDB_ROOT_USERNAME=pavan -e MONGO_INITDB_ROOT_PASSWORD=mypsswd mongo
+        (here in 3501 system port mongo runs locally)
+        (connection string will be : "mongodb://pavan:mypsswd@localhost:27017")
+
+    docker exec -it <CONTAINER_ID> <environment>
+        (-it means interactive and bash/zsh/shell may be environments)
