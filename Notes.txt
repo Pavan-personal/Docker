@@ -1,31 +1,68 @@
-Theory:
-    -> Docker is used to containerize the application.
-    -> Using docker we can create images, and then we can create or instantiate as many containers we want from that image.
-    -> Here Image is like a "Class" and container is like "Object" i.e instance.
-    -> Docker pulls the image from docker hub when we run any image if it doesn't exists.
+# Docker Fundamentals Guide
 
-Commands: 
-    docker -d --name -p <sysPort>:<containerPort> 
+## Core Concepts
 
-    docker run -d <image> (detach mode)
-        -> image will run in background regardless of terminal activity
+### Theory
+- Docker is used to containerize applications
+- Images are templates from which containers are created
+- Images can be compared to Classes, while containers are like Objects (instances)
+- Docker automatically pulls images from Docker Hub if they don't exist locally
 
-    docker run -p <Mac_Port>:<Container_Port> <image> (port)
-        -> mapping the system port with the container port
-        -> eg: 4000:3000 i.e, 4000 port in system is mapped to 3000 port in container
+## Essential Commands
 
-    docker run -e <ENV_VARIABLE>=<ENV_VALUE> <image>
+### Basic Container Operations
+```bash
+# Run container in detached mode
+docker run -d <image>
+```
+- Runs image in background regardless of terminal activity
 
-    docker ps -a (all containers will be listed and -a represents all)
+```bash
+# Run container with port mapping
+docker run -p <Host_Port>:<Container_Port> <image>
+```
+- Maps system port to container port
+- Example: `-p 4000:3000` maps system port 4000 to container port 3000
 
-    docker rm <CONTAINER_ID> (removes container)
+### Environment Variables
+```bash
+# Run container with environment variables
+docker run -e <ENV_VARIABLE>=<ENV_VALUE> <image>
+```
 
-    docker rmi <IMAGE> (removes image)
+### Container Management
+```bash
+# List all containers
+docker ps -a
 
-    creating a sample container of mongo
-        docker -d --name mymongo -p 3501:27017 -e MONGO_INITDB_ROOT_USERNAME=pavan -e MONGO_INITDB_ROOT_PASSWORD=mypsswd mongo
-        (here in 3501 system port mongo runs locally)
-        (connection string will be : "mongodb://pavan:mypsswd@localhost:27017")
+# Remove container
+docker rm <CONTAINER_ID>
 
-    docker exec -it <CONTAINER_ID> <environment>
-        (-it means interactive and bash/zsh/shell may be environments)
+# Remove image
+docker rmi <IMAGE>
+```
+
+### Interactive Container Access
+```bash
+# Access container shell
+docker exec -it <CONTAINER_ID> <environment>
+```
+- `-it` enables interactive mode
+- Environment can be bash/zsh/shell
+
+## MongoDB Container Example
+
+### Creating MongoDB Container
+```bash
+docker run -d \
+    --name mymongo \
+    -p 3501:27017 \
+    -e MONGO_INITDB_ROOT_USERNAME=pavan \
+    -e MONGO_INITDB_ROOT_PASSWORD=mypsswd \
+    mongo
+```
+
+### Connection Details
+- System Port: 3501
+- MongoDB Port: 27017
+- Connection String: `mongodb://pavan:mypsswd@localhost:27017`
